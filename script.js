@@ -13,20 +13,23 @@ const botonConvertir = document.getElementById("convertir");
 async function cargarMonedas() {
     try {
         const response = await fetch(apiUrl);
-        if (!response.ok) throw new Error("Error al obtener datos de la API");
+        if (!response.ok)
+            throw new Error("Error al obtener datos de la API");
         const data = await response.json();
         const monedas = Object.keys(data.conversion_rates);
 
+        seleccionarDivisa(monedas)
+
         // Llenar los selectores con las monedas disponibles
 
-        monedas.forEach(moneda => {
-            const opcion1 = document.createElement("option");
-            const opcion2 = document.createElement("option");
-            opcion1.value = opcion2.value = moneda;
-            opcion1.textContent = opcion2.textContent = moneda;
-            monedaOrigen.appendChild(opcion1);
-            monedaDestino.appendChild(opcion2);
-        });
+        // monedas.forEach(moneda => {
+        //     const opcion1 = document.createElement("option");
+        //     const opcion2 = document.createElement("option");
+        //     opcion1.value = opcion2.value = moneda;
+        //     opcion1.textContent = opcion2.textContent = moneda;
+        //     monedaOrigen.appendChild(opcion1);
+        //     monedaDestino.appendChild(opcion2);
+        // });
 
 
     } catch (error) {
@@ -34,6 +37,18 @@ async function cargarMonedas() {
         resultado.textContent = "No se pudieron cargar las monedas "
 
     }
+}
+
+
+function seleccionarDivisa(moneda) {
+    moneda.forEach(moneda => {
+        const opcion1 = document.createElement("option");
+        const opcion2 = document.createElement("option");
+        opcion1.value = opcion2.value = moneda;
+        opcion1.textContent = opcion2.textContent = moneda;
+        monedaOrigen.appendChild(opcion1);
+        monedaDestino.appendChild(opcion2);
+    })
 }
 
 
